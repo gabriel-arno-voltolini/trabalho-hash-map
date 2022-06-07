@@ -1,3 +1,6 @@
+// Gabriel Arno Voltolini
+// Lucas Mota de Oliveira
+// Victor do Amaral
 package Lista;
 
 public class NoLista<T> {
