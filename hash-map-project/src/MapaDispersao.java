@@ -2,14 +2,14 @@
 // Lucas Mota de Oliveira
 // Victor do Amaral
 
+
+//TODO: Deve-se usar o enderecamento fechado (varias listas dentro de cada posicao do vetor)
+// as listas devem ser encadeadas (feitas em sala)
 public class MapaDispersao<Key, T> implements IMapaDispersao<Key, T> {
     private int[] mapa;
-    private int quantidade;
 
     public MapaDispersao(int quantidade) {
-        this.quantidade = quantidade;
-        this.mapa = new int[quantidade];
-
+        this.mapa = new int[quantidade * 2];
         // O construtor MapaDispersao(int quantidade) deve criar um mapa com vetor
         // encapsulado, cujo tamanho será calculado com base no argumento quantidade,
         // que é a
