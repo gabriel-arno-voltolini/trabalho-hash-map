@@ -1,8 +1,8 @@
 package MapaDispercao;
 // Gabriel Arno Voltolini
+
 // Lucas Mota de Oliveira
 // Victor do Amaral
-
 
 //TODO: Deve-se usar o enderecamento fechado (varias listas dentro de cada posicao do vetor)
 // as listas devem ser encadeadas (feitas em sala)

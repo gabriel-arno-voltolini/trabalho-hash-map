@@ -1,7 +1,7 @@
-package MapaDispercao;
 // Gabriel Arno Voltolini
 // Lucas Mota de Oliveira
 // Victor do Amaral
+package MapaDispercao;
 
 public interface IMapaDispersao<Key, T> {
 
