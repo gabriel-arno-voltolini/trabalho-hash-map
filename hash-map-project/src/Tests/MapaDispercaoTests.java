@@ -6,10 +6,14 @@ package Tests;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
+import MapaDispercao.MapaDispersao;
+
 public class MapaDispercaoTests {
   @Test
   public void inserir_deve_retornar_true() {
-    
+    MapaDispersao<String, String> mapa = new MapaDispersao<String, String>(10);
+    boolean result = mapa.inserir("a", "b");
+    assertEquals(true, result);
   }
 
   @Test
