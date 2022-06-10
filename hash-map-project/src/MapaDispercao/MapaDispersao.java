@@ -63,7 +63,7 @@ public class MapaDispersao<Key, T> implements IMapaDispersao<Key, T> {
         int quantidadeElementos = 0;
         for (int i = 0; i < mapa.length; i++) {
             if (indexIsOccupied(i)) {
-                quantidadeElementos++;
+                quantidadeElementos += countStorageCellsAt(i);
             }
         }
         return quantidadeElementos;
@@ -98,6 +98,16 @@ public class MapaDispersao<Key, T> implements IMapaDispersao<Key, T> {
         return this.chaves.buscar(chave) != -1;
     }
 
+    private int countStorageCellsAt(int index) {
+        int count = 0;
+        ListaEncadeada<StorageCell<Key, T>> lista = null;
+        if (indexIsOccupied(index)) {
+            lista = mapa[index];
+            count = lista.getTamanho();
+        }
+        return count;
+    }
+
     private boolean indexIsOccupied(int index) {
         boolean hasCollision = false;
         if (mapa[index] != null) {
@@ -126,7 +136,8 @@ public class MapaDispersao<Key, T> implements IMapaDispersao<Key, T> {
      * que é a quantidade estimada de elementos a serem inseridos. Considere as boas
      * práticas para determinar o tamanho deste vetor.
      * >> [X] O método privado calcularHash() deve delegar para a classe K o cálculo
-     * do hash, reusando o método hashCode() do objeto recebido como argumento (chave).
+     * do hash, reusando o método hashCode() do objeto recebido como argumento
+     * (chave).
      * Entretanto, o método calcularHash() deverá compactar o valor retornado por
      * hashCode()
      * para um intervalo aceitável para ser armazenado no vetor tabela.
