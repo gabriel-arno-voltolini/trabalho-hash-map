@@ -30,7 +30,6 @@ public class MapaDispercaoTests {
 
   @Test
   public void remover_deve_retornar_valor_removido() {
-    //TODO: Não está deletando
     MapaDispersao<String, String> mapa = new MapaDispersao<String, String>(10);
     mapa.inserir("chave1", "valor");
     mapa.inserir("chave", "valor");

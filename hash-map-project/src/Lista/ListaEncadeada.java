@@ -50,21 +50,25 @@ public class ListaEncadeada<T> implements ILista<T> {
     public void retirar(T valor) {
         NoLista<T> anterior = null;
         NoLista<T> p = primeiro;
-
-        while (p != null && !p.getInfo().equals(valor)) {
-            anterior = p;
-            p = p.getProx();
-        }
-        if (p != null) {
-            if (anterior == null) {
-                primeiro = p.getProx();
-            } else {
-                anterior.setProx(p.getProx());
+        if (qtdElementos == 1) {
+            primeiro = null;
+            ultimo = null;
+        } else {
+            while (p != null && !p.getInfo().equals(valor)) {
+                anterior = p;
+                p = p.getProx();
             }
-            if (ultimo == p) {
-                ultimo = anterior;
+            if (p != null) {
+                if (anterior == null) {
+                    primeiro = p.getProx();
+                } else {
+                    anterior.setProx(p.getProx());
+                }
+                if (ultimo == p) {
+                    ultimo = anterior;
+                }
+                qtdElementos--;
             }
-            qtdElementos--;
         }
     }
 
