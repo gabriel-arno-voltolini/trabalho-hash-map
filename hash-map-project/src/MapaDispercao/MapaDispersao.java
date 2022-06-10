@@ -3,19 +3,35 @@
 // Victor do Amaral
 package MapaDispercao;
 
+import Lista.ListaEncadeada;
+
 //TODO: Deve-se usar o enderecamento fechado (varias listas dentro de cada posicao do vetor)
 // as listas devem ser encadeadas (feitas em sala)
 public class MapaDispersao<Key, T> implements IMapaDispersao<Key, T> {
-    private int[] mapa;
+    private ListaEncadeada<T>[] mapa;
+    private ListaEncadeada<Key> chaves;
 
     public MapaDispersao(int quantidade) {
         int mapaLength = nextPrime(quantidade * 2);
-        this.mapa = new int[mapaLength];
+        this.mapa = new ListaEncadeada[mapaLength];
+        this.chaves = new ListaEncadeada<Key>();
     }
 
     public boolean inserir(Key chave, T valor) {
-        int hash = calcularHash(chave);
-        return false;
+        boolean success = false;
+        int insertionIndex = getInsertionIndex(chave);
+        boolean canBeInserted = canBeInserted(chave);
+        if (canBeInserted) {
+            ListaEncadeada<T> lista = mapa[insertionIndex];
+            if (lista == null) {
+                lista = new ListaEncadeada<T>();
+                mapa[insertionIndex] = lista;
+            }
+            success = true;
+            lista.inserir(valor);
+            this.chaves.inserir(chave);
+        }
+        return success;
     }
 
     public T remover(Key chave) {
@@ -33,8 +49,26 @@ public class MapaDispersao<Key, T> implements IMapaDispersao<Key, T> {
         return 0;
     }
 
-    public int[] getMapa() {
+    public ListaEncadeada<T>[] getMapa() {
         return mapa;
+    }
+
+    private int getInsertionIndex(Key chave) {
+        int hash = chave.hashCode();
+        int index = hash % mapa.length;
+        return index;
+    }
+
+    private boolean canBeInserted(Key chave) {
+        return this.chaves.buscar(chave) == -1;
+    }
+
+    private boolean indexIsOccupied(int index) {
+        boolean hasCollision = false;
+        if (mapa[index] != null) {
+            hasCollision = !mapa[index].estaVazia();
+        }
+        return hasCollision;
     }
 
     private int nextPrime(int number) {
@@ -53,4 +87,40 @@ public class MapaDispersao<Key, T> implements IMapaDispersao<Key, T> {
     private int calcularHash(Key chave) {
         return chave.hashCode() % mapa.length;
     }
+
+    /*
+     * >> [X] O construtor MapaDispersao(int quantidade) deve criar um mapa com
+     * vetor
+     * encapsulado, cujo tamanho será calculado com base no argumento quantidade,
+     * que é a quantidade estimada de elementos a serem inseridos. Considere as boas
+     * práticas para determinar o tamanho deste vetor.
+     * >> [X] O método privado calcularHash() deve delegar para a classe K o cálculo
+     * do
+     * hash, reusando o método hashCode() do objeto recebido como argumento (chave).
+     * Entretanto, o método calcularHash() deverá compactar o valor retornado por
+     * hashCode()
+     * para um intervalo aceitável para ser armazenado no vetor tabela.
+     * >> [X] O método inserir(K, T) deve armazenar o objeto T, fornecido como
+     * argumento, no mapa
+     * de dispersão de acordo com o valor da chave (K). O retorno do método é um
+     * booleano: true caso a inserção seja bem sucedida; false caso já exista a
+     * chave no mapa e por
+     * isto não seja inserido o objeto T no mapa.
+     * >> [] O método remover(K) deve remover do mapa de dispersão o objeto que
+     * possui a
+     * mesma
+     * chave de busca da chave fornecida como argumento, retornando este objeto.
+     * Caso não
+     * localize, deve retornar null.
+     * >> [] O método buscar(K) deve procurar no mapa de dispersão um objeto que
+     * possua
+     * chave de
+     * busca igual à fornecida como argumento. Como resultado do seu processamento,
+     * o método
+     * deve retornar o objeto localizado ou null caso não localize.
+     * >> [] O método quantosElementos() deve retornar a quantidade atual de
+     * elementos
+     * inseridos
+     * no mapa.
+     */
 }
