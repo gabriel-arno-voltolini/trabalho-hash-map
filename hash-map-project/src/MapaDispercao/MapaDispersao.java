@@ -7,6 +7,12 @@ import Lista.ListaEncadeada;
 import Lista.NoLista;
 
 //TODO: Deve-se usar o enderecamento fechado (varias listas dentro de cada posicao do vetor)
+
+//TODO: Falei com o professor sobre os testes, podemos entregar o arquivo de teste, não precisa ser no main
+//TODO: Remover todos os comentários
+//TODO: Revisar os testes
+//TODO: Padronizar o código em portugues
+
 public class MapaDispersao<Key, T> implements IMapaDispersao<Key, T> {
     private ListaEncadeada<StorageCell<Key, T>>[] mapa;
     private ListaEncadeada<Key> chaves;
