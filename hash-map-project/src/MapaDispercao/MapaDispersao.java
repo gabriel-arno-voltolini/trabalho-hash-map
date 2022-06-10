@@ -37,8 +37,18 @@ public class MapaDispersao<Key, T> implements IMapaDispersao<Key, T> {
     }
 
     public T remover(Key chave) {
-        // TODO: Implementar
-        return null;
+        T valorRemovido = null;
+        boolean keyExists = keyAlreadyExists(chave);
+        int removalIndex = 0;
+        if (keyExists) {
+            valorRemovido = buscar(chave);
+            removalIndex = calcularHash(chave);
+            StorageCell<Key, T> cellToBeRemoved = new StorageCell<Key, T>(chave, valorRemovido);
+            ListaEncadeada<StorageCell<Key, T>> lista = mapa[removalIndex];
+            lista.retirar(cellToBeRemoved);
+            this.chaves.retirar(chave);
+        }
+        return valorRemovido;
     }
 
     public T buscar(Key chave) {
@@ -51,8 +61,13 @@ public class MapaDispersao<Key, T> implements IMapaDispersao<Key, T> {
     }
 
     public int quantosElementos() {
-        // TODO: Implementar
-        return 0;
+        int quantidadeElementos = 0;
+        for (int i = 0; i < mapa.length; i++) {
+            if (indexIsOccupied(i)) {
+                quantidadeElementos++;
+            }
+        }
+        return quantidadeElementos;
     }
 
     private StorageCell<Key, T> getStorageCellByKey(Key chave) {
@@ -70,7 +85,6 @@ public class MapaDispersao<Key, T> implements IMapaDispersao<Key, T> {
             } else {
                 noListaAtual = noListaAtual.getProx();
             }
-
         } while (noListaAtual != null);
         return result;
     }
@@ -124,17 +138,16 @@ public class MapaDispersao<Key, T> implements IMapaDispersao<Key, T> {
      * booleano: true caso a inserção seja bem sucedida; false caso já exista a
      * chave no mapa e por
      * isto não seja inserido o objeto T no mapa.
-     * >> [] O método remover(K) deve remover do mapa de dispersão o objeto que
+     * >> [X] O método remover(K) deve remover do mapa de dispersão o objeto que
      * possui a mesma chave de busca da chave fornecida como argumento, retornando
      * este objeto.
      * Caso não localize, deve retornar null.
-     * >> [] O método buscar(K) deve procurar no mapa de dispersão um objeto que
+     * >> [X] O método buscar(K) deve procurar no mapa de dispersão um objeto que
      * possua
-     * chave de
-     * busca igual à fornecida como argumento. Como resultado do seu processamento,
-     * o método
+     * chave de busca igual à fornecida como argumento. Como resultado do seu
+     * processamento, o método
      * deve retornar o objeto localizado ou null caso não localize.
-     * >> [] O método quantosElementos() deve retornar a quantidade atual de
+     * >> [X] O método quantosElementos() deve retornar a quantidade atual de
      * elementos
      * inseridos
      * no mapa.
