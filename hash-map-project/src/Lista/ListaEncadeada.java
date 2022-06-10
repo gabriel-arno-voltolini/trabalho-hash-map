@@ -141,4 +141,8 @@ public class ListaEncadeada<T> implements ILista<T> {
         }
         return null;
     }
+
+    public NoLista<T> getPrimeiro() {
+        return this.primeiro;
+    }
 }
