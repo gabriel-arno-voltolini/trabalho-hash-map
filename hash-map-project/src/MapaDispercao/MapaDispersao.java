@@ -7,7 +7,6 @@ import Lista.ListaEncadeada;
 import Lista.NoLista;
 
 //TODO: Deve-se usar o enderecamento fechado (varias listas dentro de cada posicao do vetor)
-// as listas devem ser encadeadas (feitas em sala)
 public class MapaDispersao<Key, T> implements IMapaDispersao<Key, T> {
     private ListaEncadeada<StorageCell<Key, T>>[] mapa;
     private ListaEncadeada<Key> chaves;
@@ -90,7 +89,7 @@ public class MapaDispersao<Key, T> implements IMapaDispersao<Key, T> {
     }
 
     private int calcularHash(Key chave) {
-        int hash = chave.hashCode();
+        int hash = Math.abs(chave.hashCode());
         int index = hash % mapa.length;
         return index;
     }
@@ -127,8 +126,7 @@ public class MapaDispersao<Key, T> implements IMapaDispersao<Key, T> {
      * que é a quantidade estimada de elementos a serem inseridos. Considere as boas
      * práticas para determinar o tamanho deste vetor.
      * >> [X] O método privado calcularHash() deve delegar para a classe K o cálculo
-     * do
-     * hash, reusando o método hashCode() do objeto recebido como argumento (chave).
+     * do hash, reusando o método hashCode() do objeto recebido como argumento (chave).
      * Entretanto, o método calcularHash() deverá compactar o valor retornado por
      * hashCode()
      * para um intervalo aceitável para ser armazenado no vetor tabela.

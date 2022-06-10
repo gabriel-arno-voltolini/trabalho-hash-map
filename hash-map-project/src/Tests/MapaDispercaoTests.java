@@ -13,7 +13,9 @@ public class MapaDispercaoTests {
   public void inserir_deve_retornar_true() {
     MapaDispersao<String, String> mapa = new MapaDispersao<String, String>(10);
     boolean result = mapa.inserir("chave", "valor");
+    int count = mapa.quantosElementos();
     assertEquals(true, result);
+    assertEquals(1, count);
   }
 
   @Test
@@ -21,7 +23,9 @@ public class MapaDispercaoTests {
     MapaDispersao<String, String> mapa = new MapaDispersao<String, String>(10);
     mapa.inserir("chave", "valor1");
     boolean result = mapa.inserir("chave", "valor");
+    int count = mapa.quantosElementos();
     assertEquals(false, result);
+    assertEquals(1, count);
   }
 
   @Test
@@ -29,7 +33,9 @@ public class MapaDispercaoTests {
     MapaDispersao<String, String> mapa = new MapaDispersao<String, String>(10);
     mapa.inserir("chave", "valor");
     String result = mapa.remover("chave");
+    int count = mapa.quantosElementos();
     assertEquals("valor", result);
+    assertEquals(0, count);
   }
 
   @Test
@@ -37,8 +43,9 @@ public class MapaDispercaoTests {
     MapaDispersao<String, String> mapa = new MapaDispersao<String, String>(10);
     mapa.inserir("chave", "valor");
     String result = mapa.remover("chave2");
+    int count = mapa.quantosElementos();
     assertEquals(null, result);
-
+    assertEquals(1, count);
   }
 
   @Test
@@ -66,7 +73,6 @@ public class MapaDispercaoTests {
     mapa.inserir("chave3", "valor");
     int result = mapa.quantosElementos();
     assertEquals(4, result);
-
   }
 
   @Test
