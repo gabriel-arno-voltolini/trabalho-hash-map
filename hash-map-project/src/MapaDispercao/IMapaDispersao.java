@@ -1,9 +1,10 @@
 // Gabriel Arno Voltolini
 // Lucas Mota de Oliveira
 // Victor do Amaral
+
 package MapaDispercao;
 
-public interface IMapaDispersao<Key, T> {
+public interface IMapaDispersao<K, T> {
 
     /**
      * <p>
@@ -20,7 +21,7 @@ public interface IMapaDispersao<Key, T> {
      * @return boolean operacao bem sucedida
      * @see Image
      */
-    boolean inserir(Key chave, T valor);
+    boolean inserir(K chave, T valor);
 
     /**
      * <p>
@@ -31,7 +32,7 @@ public interface IMapaDispersao<Key, T> {
      * @return T valor removido ou null
      * @see Image
      */
-    T remover(Key chave);
+    T remover(K chave);
 
     /**
      * <p>
@@ -45,7 +46,7 @@ public interface IMapaDispersao<Key, T> {
      * @return T valor encontrado ou null
      * @see Image
      */
-    T buscar(Key chave);
+    T buscar(K chave);
 
     /**
      * <p>

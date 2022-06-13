@@ -1,6 +1,7 @@
 // Gabriel Arno Voltolini
 // Lucas Mota de Oliveira
 // Victor do Amaral
+
 package Tests;
 
 import static org.junit.Assert.assertEquals;
@@ -67,6 +68,17 @@ public class MapaDispercaoTests {
 
   @Test
   public void quantosElementos_deve_retornar_numero_total_de_elementos() {
+    MapaDispersao<String, String> mapa = new MapaDispersao<String, String>(10);
+    mapa.inserir("chave", "valor");
+    mapa.inserir("chave1", "valor");
+    mapa.inserir("chave2", "valor");
+    mapa.inserir("chave3", "valor");
+    int result = mapa.quantosElementos();
+    assertEquals(4, result);
+  }
+  
+  @Test
+  public void teste() {
     MapaDispersao<String, String> mapa = new MapaDispersao<String, String>(10);
     mapa.inserir("chave", "valor");
     mapa.inserir("chave1", "valor");

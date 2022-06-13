@@ -1,15 +1,19 @@
+// Gabriel Arno Voltolini
+// Lucas Mota de Oliveira
+// Victor do Amaral
+
 package MapaDispercao;
 
-public class StorageCell<Key, T> {
-    private Key key;
+public class StorageCell<K, T> {
+    private K key;
     private T value;
 
-    public StorageCell(Key key, T value) {
+    public StorageCell(K key, T value) {
         this.key = key;
         this.value = value;
     }
 
-    public Key getKey() {
+    public K getKey() {
         return key;
     }
 

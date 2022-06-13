@@ -1,36 +1,32 @@
 // Gabriel Arno Voltolini
 // Lucas Mota de Oliveira
 // Victor do Amaral
+
 package MapaDispercao;
 
 import Lista.ListaEncadeada;
 import Lista.NoLista;
 
-//TODO: Falei com o professor sobre os testes, podemos entregar o arquivo de teste, não precisa ser no main
-//TODO: Remover todos os comentários
-//TODO: Revisar os testes
-//TODO: Padronizar o código em portugues
-
-public class MapaDispersao<Key, T> implements IMapaDispersao<Key, T> {
-    private ListaEncadeada<StorageCell<Key, T>>[] mapa;
-    private ListaEncadeada<Key> chaves;
+public class MapaDispersao<K, T> implements IMapaDispersao<K, T> {
+    private ListaEncadeada<StorageCell<K, T>>[] tabela;
+    private ListaEncadeada<K> chaves;
 
     public MapaDispersao(int quantidade) {
         int mapaLength = nextPrime(quantidade * 2);
-        this.mapa = new ListaEncadeada[mapaLength];
-        this.chaves = new ListaEncadeada<Key>();
+        this.tabela = new ListaEncadeada[mapaLength];
+        this.chaves = new ListaEncadeada<K>();
     }
 
-    public boolean inserir(Key chave, T valor) {
+    public boolean inserir(K chave, T dado) {
         boolean success = false;
         int insertionIndex = calcularHash(chave);
         boolean canBeInserted = !keyAlreadyExists(chave);
         if (canBeInserted) {
-            ListaEncadeada<StorageCell<Key, T>> lista = mapa[insertionIndex];
-            StorageCell<Key, T> storageCell = new StorageCell<>(chave, valor);
+            ListaEncadeada<StorageCell<K, T>> lista = tabela[insertionIndex];
+            StorageCell<K, T> storageCell = new StorageCell<>(chave, dado);
             if (lista == null) {
-                lista = new ListaEncadeada<StorageCell<Key, T>>();
-                mapa[insertionIndex] = lista;
+                lista = new ListaEncadeada<StorageCell<K, T>>();
+                tabela[insertionIndex] = lista;
             }
             success = true;
             lista.inserir(storageCell);
@@ -39,22 +35,22 @@ public class MapaDispersao<Key, T> implements IMapaDispersao<Key, T> {
         return success;
     }
 
-    public T remover(Key chave) {
+    public T remover(K chave) {
         T valorRemovido = null;
         boolean keyExists = keyAlreadyExists(chave);
         int removalIndex = 0;
         if (keyExists) {
             valorRemovido = buscar(chave);
             removalIndex = calcularHash(chave);
-            StorageCell<Key, T> cellToBeRemoved = new StorageCell<Key, T>(chave, valorRemovido);
-            ListaEncadeada<StorageCell<Key, T>> lista = mapa[removalIndex];
+            StorageCell<K, T> cellToBeRemoved = new StorageCell<K, T>(chave, valorRemovido);
+            ListaEncadeada<StorageCell<K, T>> lista = tabela[removalIndex];
             lista.retirar(cellToBeRemoved);
             this.chaves.retirar(chave);
         }
         return valorRemovido;
     }
 
-    public T buscar(Key chave) {
+    public T buscar(K chave) {
         T result = null;
         boolean keyExists = keyAlreadyExists(chave);
         if (keyExists) {
@@ -65,7 +61,7 @@ public class MapaDispersao<Key, T> implements IMapaDispersao<Key, T> {
 
     public int quantosElementos() {
         int quantidadeElementos = 0;
-        for (int i = 0; i < mapa.length; i++) {
+        for (int i = 0; i < tabela.length; i++) {
             if (indexIsOccupied(i)) {
                 quantidadeElementos += countStorageCellsAt(i);
             }
@@ -73,11 +69,11 @@ public class MapaDispersao<Key, T> implements IMapaDispersao<Key, T> {
         return quantidadeElementos;
     }
 
-    private StorageCell<Key, T> getStorageCellByKey(Key chave) {
-        StorageCell<Key, T> result = null;
-        NoLista<StorageCell<Key, T>> noListaAtual = null;
+    private StorageCell<K, T> getStorageCellByKey(K chave) {
+        StorageCell<K, T> result = null;
+        NoLista<StorageCell<K, T>> noListaAtual = null;
         int index = calcularHash(chave);
-        ListaEncadeada<StorageCell<Key, T>> lista = mapa[index];
+        ListaEncadeada<StorageCell<K, T>> lista = tabela[index];
         do {
             if (noListaAtual == null) {
                 noListaAtual = lista.getPrimeiro();
@@ -92,21 +88,21 @@ public class MapaDispersao<Key, T> implements IMapaDispersao<Key, T> {
         return result;
     }
 
-    private int calcularHash(Key chave) {
+    private int calcularHash(K chave) {
         int hash = Math.abs(chave.hashCode());
-        int index = hash % mapa.length;
+        int index = hash % tabela.length;
         return index;
     }
 
-    private boolean keyAlreadyExists(Key chave) {
+    private boolean keyAlreadyExists(K chave) {
         return this.chaves.buscar(chave) != -1;
     }
 
     private int countStorageCellsAt(int index) {
         int count = 0;
-        ListaEncadeada<StorageCell<Key, T>> lista = null;
+        ListaEncadeada<StorageCell<K, T>> lista = null;
         if (indexIsOccupied(index)) {
-            lista = mapa[index];
+            lista = tabela[index];
             count = lista.getTamanho();
         }
         return count;
@@ -114,8 +110,8 @@ public class MapaDispersao<Key, T> implements IMapaDispersao<Key, T> {
 
     private boolean indexIsOccupied(int index) {
         boolean hasCollision = false;
-        if (mapa[index] != null) {
-            hasCollision = !mapa[index].estaVazia();
+        if (tabela[index] != null) {
+            hasCollision = !tabela[index].estaVazia();
         }
         return hasCollision;
     }
@@ -132,37 +128,4 @@ public class MapaDispersao<Key, T> implements IMapaDispersao<Key, T> {
                 return false;
         return true;
     }
-
-    /*
-     * >> [X] O construtor MapaDispersao(int quantidade) deve criar um mapa com
-     * vetor
-     * encapsulado, cujo tamanho será calculado com base no argumento quantidade,
-     * que é a quantidade estimada de elementos a serem inseridos. Considere as boas
-     * práticas para determinar o tamanho deste vetor.
-     * >> [X] O método privado calcularHash() deve delegar para a classe K o cálculo
-     * do hash, reusando o método hashCode() do objeto recebido como argumento
-     * (chave).
-     * Entretanto, o método calcularHash() deverá compactar o valor retornado por
-     * hashCode()
-     * para um intervalo aceitável para ser armazenado no vetor tabela.
-     * >> [X] O método inserir(K, T) deve armazenar o objeto T, fornecido como
-     * argumento, no mapa
-     * de dispersão de acordo com o valor da chave (K). O retorno do método é um
-     * booleano: true caso a inserção seja bem sucedida; false caso já exista a
-     * chave no mapa e por
-     * isto não seja inserido o objeto T no mapa.
-     * >> [X] O método remover(K) deve remover do mapa de dispersão o objeto que
-     * possui a mesma chave de busca da chave fornecida como argumento, retornando
-     * este objeto.
-     * Caso não localize, deve retornar null.
-     * >> [X] O método buscar(K) deve procurar no mapa de dispersão um objeto que
-     * possua
-     * chave de busca igual à fornecida como argumento. Como resultado do seu
-     * processamento, o método
-     * deve retornar o objeto localizado ou null caso não localize.
-     * >> [X] O método quantosElementos() deve retornar a quantidade atual de
-     * elementos
-     * inseridos
-     * no mapa.
-     */
 }
