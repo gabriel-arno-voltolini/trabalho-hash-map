@@ -12,7 +12,7 @@ public class MapaDispersao<K, T> implements IMapaDispersao<K, T> {
     private ListaEncadeada<K> chaves;
 
     public MapaDispersao(int quantidade) {
-        int mapaLength = nextPrime(quantidade * 2);
+        int mapaLength = Math.abs(nextPrime(quantidade * 2));
         this.tabela = new ListaEncadeada[mapaLength];
         this.chaves = new ListaEncadeada<K>();
     }
