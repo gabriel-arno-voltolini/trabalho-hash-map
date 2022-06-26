@@ -10,39 +10,39 @@ class ClasseParaTestarSort {
 	private static Veiculo[] vetor;
 	private static Integer[] vetorInts;
 	private static String[] vetorStrings;
-	private static int[] tamanhos = {10, 500};
+	private static int[] tamanhos = {10};
 	
 	public static void main(String[] args) {
 		initializeClass();
 		
 		// a linha abaixo precisa ser alterada para a classe criada pela equipe
-		Sort<Veiculo> meuAlgoritmo = new Tree<>();
+		// Sort<Veiculo> meuAlgoritmo = new Tree<>();
 
 		long ultimoNanoTime, tempoExecucao;
-		for (Integer i : tamanhos) {
-			Veiculo[] vetorCopiado = Arrays.copyOf(vetor, i);
-			System.out.println("Vetor com " + i + " ve�culos");
-			System.out.println(Arrays.toString(vetorCopiado));
-			ultimoNanoTime = System.nanoTime();
-			meuAlgoritmo.sort(vetorCopiado);
-			tempoExecucao = System.nanoTime() - ultimoNanoTime;
-			System.out.println("Vetor ORDENADO com " + i + " ve�culos em "+tempoExecucao+" ns");
-			System.out.println(Arrays.toString(vetorCopiado));
-		}
+		// for (Integer i : tamanhos) {
+		// 	Veiculo[] vetorCopiado = Arrays.copyOf(vetor, i);
+		// 	System.out.println("Vetor com " + i + " ve�culos");
+		// 	System.out.println(Arrays.toString(vetorCopiado));
+		// 	ultimoNanoTime = System.nanoTime();
+		// 	meuAlgoritmo.sort(vetorCopiado);
+		// 	tempoExecucao = System.nanoTime() - ultimoNanoTime;
+		// 	System.out.println("Vetor ORDENADO com " + i + " ve�culos em "+tempoExecucao+" ns");
+		// 	System.out.println(Arrays.toString(vetorCopiado));
+		// }
 
-		// a linha abaixo precisa ser alterada para a classe criada pela equipe
-		Sort<Integer> meuAlgoritmo2 = new Tree<>();
+		// // a linha abaixo precisa ser alterada para a classe criada pela equipe
+		// Sort<Integer> meuAlgoritmo2 = new Tree<>();
 
-		for (Integer i : tamanhos) {
-			Integer[] vetorCopiado = Arrays.copyOf(vetorInts, i);
-			System.out.println("Vetor com " + i + " inteiros");
-			System.out.println(Arrays.toString(vetorCopiado));
-			ultimoNanoTime = System.nanoTime();
-			meuAlgoritmo2.sort(vetorCopiado);
-			tempoExecucao = System.nanoTime() - ultimoNanoTime;
-			System.out.println("Vetor ORDENADO com " + i + " inteiros em "+tempoExecucao+" ns");
-			System.out.println(Arrays.toString(vetorCopiado));
-		}
+		// for (Integer i : tamanhos) {
+		// 	Integer[] vetorCopiado = Arrays.copyOf(vetorInts, i);
+		// 	System.out.println("Vetor com " + i + " inteiros");
+		// 	System.out.println(Arrays.toString(vetorCopiado));
+		// 	ultimoNanoTime = System.nanoTime();
+		// 	meuAlgoritmo2.sort(vetorCopiado);
+		// 	tempoExecucao = System.nanoTime() - ultimoNanoTime;
+		// 	System.out.println("Vetor ORDENADO com " + i + " inteiros em "+tempoExecucao+" ns");
+		// 	System.out.println(Arrays.toString(vetorCopiado));
+		// }
 		
 		// a linha abaixo precisa ser alterada para a classe criada pela equipe
 		Sort<String> meuAlgoritmo3 = new Tree<>();

@@ -16,22 +16,22 @@ public class Tree<T extends Comparable<T>> implements Sort<T> {
             arvBusca.inserir(item);
         }
 
-        order(arvBusca.getRaiz());
+        ordenarArvore(arvBusca.getRaiz());
 
         for (int i = 0; i < vetor.length; i++) {
             vetor[i] = lista.pegar(i);
         }
     }
 
-    public NoArvoreBinaria<T> order(NoArvoreBinaria<T> no) {
+    public NoArvoreBinaria<T> ordenarArvore(NoArvoreBinaria<T> no) {
         if (no.getEsq() != null) {
-            order(no.getEsq()).getInfo();
+            ordenarArvore(no.getEsq()).getInfo();
         }
 
         lista.inserir(no.getInfo());
 
         if (no.getDir() != null) {
-            order(no.getDir()).getInfo();
+            ordenarArvore(no.getDir()).getInfo();
         }
 
         return no;
